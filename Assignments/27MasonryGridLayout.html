@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masonry Grid Layout</title>
+  <style>
+    .masonry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-gap: 10px;
+    }
+
+    .masonry-grid-item {
+      background-color: #eee;
+      padding: 15px;
+      border-radius: 5px;
+    }
+
+    .masonry-grid-item img {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="masonry-grid">
+    <div class="masonry-grid-item">
+      <h2>Item 1</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ultrices mauris vitae augue tempor, at eleifend quam tincidunt.</p>
+    </div>
+    <div class="masonry-grid-item">
+      <img src="thumbnail1.jpg" alt="Image 1">
+    </div>
+    <div class="masonry-grid-item">
+      <h3>Item 3</h3>
+      <p>Donec nec diam eu libero venenatis tincidunt sed vitae sapien. Maecenas pretium est eu placerat tincidunt.</p>
+    </div>
+    </div>
+
+  <script>
+    // Optional: Script to handle potential image load issues and layout recalculation (for better responsiveness)
+    const images = document.querySelectorAll('.masonry-grid img');
+    images.forEach(img => {
+      img.addEventListener('load', () => {
+        const masonryGrid = document.querySelector('.masonry-grid');
+        masonryGrid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(250px, 1fr))'; // Recalculate grid layout
+      });
+    });
+  </script>
+</body>
+</html>

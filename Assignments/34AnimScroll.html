@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Progress Bar</title>
+  <style>
+    .progress-container {
+      width: 500px;
+      height: 30px;
+      background-color: #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background-color: #007bff;
+      width: 0%;
+      transition: width 1s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <h1>Progress Bar</h1>
+  <div class="progress-container">
+    <div class="progress-bar" id="myBar"></div>
+  </div>
+
+  <script>
+    const progressBar = document.getElementById('myBar');
+
+    function animateProgress(progress) {
+      progressBar.style.width = `${progress}%`;
+    }
+
+    // Set your desired progress value (0-100)
+    const targetProgress = 75;
+
+    let currentProgress = 0;
+    const intervalId = setInterval(() => {
+      currentProgress += 1;
+      animateProgress(currentProgress);
+      if (currentProgress >= targetProgress) {
+        clearInterval(intervalId);
+      }
+    }, 20); // Adjust interval for animation speed (lower for faster)
+  </script>
+</body>
+</html>

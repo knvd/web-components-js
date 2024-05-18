@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll Animations Example</title>
+  <style>
+
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  padding: 1rem 2rem;
+  background-color: #f0f0f0;
+}
+
+section {
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 5px;
+  background-color: #eee;
+  opacity: 0; /* Initially hidden */
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.slide-up {
+  animation: slideUp 1s ease-in-out;
+  transform: translateY(20px); /* Initially moved up */
+}
+
+.zoom-in {
+  animation: zoomIn 1s ease-in-out;
+  transform: scale(0.9); /* Initially shrunk */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); }
+  to { transform: translateY(0); }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.9); }
+  to { transform: transform: scale(1); }
+}
+
+</style>
+</head>
+<body>
+  <header>
+    <h1>Scroll Animations Example</h1>
+  </header>
+
+  <section class="section fade-in">
+    <h2>Section 1</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit....</p>
+  </section>
+
+  <section class="section slide-up">
+    <h2>Section 2</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit....</p>
+  </section>
+
+  <section class="section zoom-in">
+    <h2>Section 3</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit....</p>
+  </section>
+
+  <script>
+const sections = document.querySelectorAll('.section');
+
+const options = {
+  root: null, // Observe the entire viewport
+  threshold: 0.5, // Trigger animation when 50% of the element is visible
+};
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+    } else {
+      entry.target.classList.remove('active');
+    }
+  });
+});
+
+sections.forEach(section => {
+  observer.observe(section);
+});
+</script>
+</body>
+</html>

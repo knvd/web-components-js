@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tooltips & Popovers</title>
+  <style>
+    .tooltip {
+      position: absolute;
+      background-color: #333;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      z-index: 10; /* Ensure tooltip appears above other elements */
+    }
+
+    .tooltip::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: #333 transparent transparent transparent;
+    }
+
+    .tooltip.active {
+      opacity: 1;
+    }
+
+    .popover {
+      position: absolute;
+      background-color: #fff;
+      color: #333;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      z-index: 10; /* Ensure popover appears above other elements */
+    }
+
+    .popover::after {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent transparent #ddd transparent;
+    }
+
+    .popover.active {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Tooltips</h2>
+  <p>Hover over the icons for a tooltip:</p>
+  <span class="tooltip-trigger" data-tooltip="This is a tooltip">
+    <i class="fas fa-info-circle"></i> </span>
+  <span class="tooltip-trigger" data-tooltip="Click for more info">
+    <i class="fas fa-question-circle"></i> </span>
+
+  <h2>Popovers</h2>
+  <p>Click on the buttons to show popovers:</p>
+  <button class="popover-trigger" data-popover="This is the popover content">More Info</button>
+  <button class="popover-trigger" data-popover="<b>Bold</b> and <i>italic</i> text supported!">Details</button>
+
+  <script>
+    const tooltips = document.querySelectorAll('.tooltip-trigger');
+
+    tooltips.forEach(tooltip => {
+      tooltip.addEventListener('mouseenter', () => {
+        const tooltipText = tooltip.dataset.tooltip;
+        const tooltipElement = document.createElement('div');
+        tooltipElement.classList.add('tooltip');
+        tooltipElement.textContent = tooltipText;
+        document.body.appendChild(tooltipElement);
+
+        const tooltipPosition = tooltip.getBoundingClientRect();
+        const bodyRect = document.body.getBoundingClientRect();
+
+        let left = tooltipPosition.left + window.pageXOffset;
+        if (left + tooltipElement.clientWidth > bodyRect.right) {
+          left = bodyRect.right - tooltipElement.clientWidth;
+        }
+
+        tooltipElement.style.left = `${left}px`;
+        tooltipElement.style.top = `${tooltipPosition.top + window.pageYOffset + tooltipPosition.height}px`;
+        tooltipElement.classList.add('active');
+      });
+
+      tooltip.addEventListener('mouseleave', () => {
+        const existingTooltip = document.querySelector('.tooltip.active');
+        if (existingTooltip) {
+          existingTooltip.parentNode.removeChild(existingTooltip);
+        }
+      });
+    });
+
+    const popovers = document.querySelectorAll('.popover-trigger');
+
+    popovers.forEach(popover => {
+      popover.addEventListener('click', () => {
+        const popoverContent = popover.dataset.popover;
+
+        const popoverElement = document.createElement('div');
+        popoverElement.classList.add('popover');
+        popoverElement.innerHTML = popoverContent;
+        document.body.appendChild(popoverElement);
+
+        const popoverPosition = popover.getBoundingClientRect();
+        const bodyRect = document.body.getBoundingClientRect();
+
+        let left = popoverPosition.left + window.pageXOffset;
+        let top = popoverPosition.top + window.pageYOffset + popoverPosition.height;
+
+        // Adjust positioning if popover overflows viewport
+        if (left + popoverElement.clientWidth > bodyRect.right) {
+          left = bodyRect.right - popoverElement.clientWidth;
+        }
+        if (top + popoverElement.clientHeight > window.innerHeight) {
+          top = window.innerHeight - popoverElement.clientHeight;
+        }
+
+        popoverElement.style.left = `${left}px`;
+        popoverElement.style.top = `${top}px`;
+        popoverElement.classList.add('active');
+
+        // Close popovers when clicked outside
+        document.addEventListener('click', (event) => {
+          if (!event.target.classList.contains('popover-trigger') && event.target !== popoverElement) {
+            popoverElement.parentNode.removeChild(popoverElement);
+            document.removeEventListener('click', this); // Remove temporary event listener
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

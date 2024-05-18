@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Navigation Menu</title>
+  <style>
+    /* Base styles */
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #f0f0f0;
+    }
+
+    .logo {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    .nav-list li {
+      margin-right: 1rem;
+    }
+
+    .nav-list a {
+      text-decoration: none;
+      color: #333;
+      padding: 0.5rem 1rem;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .nav-list a:hover {
+      background-color: #ddd;
+    }
+
+    /* Hamburger menu styles */
+    .hamburger-menu {
+      display: none; /* Hidden initially for larger screens */
+      cursor: pointer;
+      padding: 1rem;
+      border: none;
+      background-color: transparent;
+    }
+
+    .hamburger-menu .bar {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: #333;
+      margin-bottom: 5px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .hamburger-menu.active .bar:first-child {
+      transform: rotate(45deg) translate(8px, -8px);
+    }
+
+    .hamburger-menu.active .bar:last-child {
+      transform: rotate(-45deg) translate(8px, 8px);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .nav-list {
+        display: block; /* Stack links vertically on small screens */
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #f0f0f0;
+        padding: 1rem;
+        transition: all 0.3s ease-in-out;
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .nav-list.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .hamburger-menu {
+        display: block; /* Show hamburger menu on small screens */
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navigation">
+      <a href="#" class="logo">Your Website Logo</a>
+      <ul class="nav-list">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <button class="hamburger-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </nav>
+  </header>
+
+  <script>
+    const navList = document.querySelector('.nav-list');
+    const hamburgerBtn = document.querySelector('.hamburger-menu');
+
+    hamburgerBtn.addEventListener('click', () => {
+      navList.classList.toggle('active');
+      hamburgerBtn.classList.toggle('active');
+    });
+  

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Video Player</title>
+  <style>
+    .video-player {
+      position: relative;
+      width: 640px; /* Adjust width as needed */
+    }
+
+    .video-player video {
+      width: 100%;
+      height: auto;
+    }
+
+    .controls {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      padding: 5px;
+    }
+
+    .controls button {
+      margin: 0 5px;
+      border: none;
+      background-color: transparent;
+      color: white;
+      cursor: pointer;
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 5px;
+      background-color: #ddd;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: #1a73e8;
+      transition: width 0.2s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="video-player">
+    <video id="myVideo" controls src="your_video.mp4"></video>
+    <div class="controls">
+      <button id="playPauseBtn">Play</button>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const video = document.getElementById('myVideo');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const progressBar = document.querySelector('.progress-fill');
+
+    playPauseBtn.addEventListener('click', () => {
+      if (video.paused) {
+        video.play();
+        playPauseBtn.textContent = 'Pause';
+      } else {
+        video.pause();
+        playPauseBtn.textContent = 'Play';
+      }
+    });
+
+    volumeSlider.addEventListener('input', () => {
+      video.volume = volumeSlider.value;
+    });
+
+    video.addEventListener('timeupdate', () => {
+      const progress = video.currentTime / video.duration;
+      progressBar.style.width = `${progress * 100}%`;
+    });
+  </script>
+</body>
+</html>

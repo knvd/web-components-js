@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smooth Page Transitions (JS)</title>
+</head>
+<body>
+  <nav>
+    <a href="#section1">Section 1</a>
+    <a href="#section2">Section 2</a>
+    <a href="#section3">Section 3</a>
+  </nav>
+
+  <section id="section1">
+    <h1>Section 1 Content</h1>
+  </section>
+
+  <section id="section2">
+    <h1>Section 2 Content</h1>
+  </section>
+
+  <section id="section3">
+    <h1>Section 3 Content</h1>
+  </section>
+<h1>Section 3 Content</h1>
+<h1>Section 3 Content</h1>
+<h1>Section 3 Content</h1>
+<h1>Section 3 Content</h1>
+<h1>Section 3 Content</h1>
+  <script>
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent default anchor link behavior
+        const targetSection = document.getElementById(link.hash.slice(1)); // Get target section based on hash
+
+        // Add active class to clicked link (optional for styling)
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+
+        // Smooth scroll animation using window.scroll({...})
+        window.scroll({
+          behavior: 'smooth',
+          top: targetSection.offsetTop
+        });
+      });
+    });
+  </script>
+</body>
+</html>

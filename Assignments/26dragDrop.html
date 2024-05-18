@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drag and Drop List</title>
+  <style>
+    .drag-and-drop {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .drag-and-drop li {
+      margin: 10px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      cursor: grab;
+    }
+
+    .drag-and-drop li.dragging {
+      opacity: 0.5;
+    }
+
+    .drag-and-drop li.placeholder {
+      background-color: #ddd;
+      height: 50px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Drag and Drop List</h1>
+
+  <ul class="drag-and-drop">
+    <li draggable="true">Item 1</li>
+    <li draggable="true">Item 2</li>
+    <li draggable="true">Item 3</li>
+  </ul>
+
+  <script>
+    const list = document.querySelector('.drag-and-drop');
+
+    list.addEventListener('dragstart', (event) => {
+      event.dataTransfer.setData('text/plain', event.target.textContent);
+      event.target.classList.add('dragging');
+    });
+
+    list.addEventListener('dragover', (event) => {
+      event.preventDefault();
+      const draggedItem = document.querySelector('.dragging');
+      const hoverItem = event.target;
+
+      if (hoverItem !== draggedItem && hoverItem.parentNode === list) {
+        const draggingIndex = [...list.children].indexOf(draggedItem);
+        const hoverIndex = [...list.children].indexOf(hoverItem);
+
+        if (hoverIndex > draggingIndex) {
+          list.insertBefore(draggedItem, hoverItem.nextSibling);
+        } else {
+          list.insertBefore(draggedItem, hoverItem);
+        }
+
+        // Optional: Add visual indicator for drop position (using placeholder element)
+        const placeholder = document.createElement('li');
+        placeholder.classList.add('placeholder');
+        list.insertBefore(placeholder, hoverIndex > draggingIndex ? hoverItem.nextSibling : hoverItem);
+      }
+    });
+
+    list.addEventListener('dragend', (event) => {
+      event.target.classList.remove('dragging');
+      const placeholder = document.querySelector('.placeholder');
+      if (placeholder) placeholder.remove();
+    });
+  </script>
+</body>
+</html>

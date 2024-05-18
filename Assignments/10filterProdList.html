@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filterable Product List</title>
+  <style>
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .filter-options {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="filter-options">
+    <label for="category-filter">Category:</label>
+    <select id="category-filter" onchange="filterProducts()">
+      <option value="all">All</option>
+      <option value="electronics">Electronics</option>
+      <option value="clothing">Clothing</option>
+      <option value="books">Books</option>
+    </select>
+
+    <label for="price-filter">Price:</label>
+    <input type="range" id="price-filter" min="0" max="100" value="100" oninput="filterProducts()">
+    <span id="price-value"></span>
+  </div>
+
+  <div class="product-list" id="product-list"></div>
+
+  <script>
+    const products = [
+      { name: 'Laptop', category: 'electronics', price: 799.99 },
+      { name: 'Smartphone', category: 'electronics', price: 399.99 },
+      { name: 'T-Shirt', category: 'clothing', price: 19.99 },
+      { name: 'Jeans', category: 'clothing', price: 49.99 },
+      { name: 'Novel', category: 'books', price: 14.99 },
+      { name: 'Textbook', category: 'books', price: 29.99 },
+    ];
+
+    const productList = document.getElementById('product-list');
+    const priceFilter = document.getElementById('price-filter');
+    const priceValue = document.getElementById('price-value');
+
+    priceValue.textContent = `Max Price: $${priceFilter.value}`;
+
+    function renderProducts(filteredProducts) {
+      productList.innerHTML = '';
+      filteredProducts.forEach(product => {
+        const card = document.createElement('div');
+        card.classList.add('product-card');
+        card.innerHTML = `
+          <h3>${product.name}</h3>
+          <p>Category: ${product.category}</p>
+          <p>Price: $${product.price.toFixed(2)}</p>
+        `;
+        productList.appendChild(card);
+      });
+    }
+
+    function filterProducts() {
+      const categoryFilter = document.getElementById('category-filter').value;
+      const maxPrice = priceFilter.value;
+
+      const filteredProducts = products.filter(product => {
+        if (categoryFilter !== 'all' && product.category !== categoryFilter) {
+          return false;
+        }
+        if (product.price > maxPrice) {
+          return false;
+        }
+        return true;
+      });
+
+      renderProducts(filteredProducts);
+    }
+
+    priceFilter.addEventListener('input', () => {
+      priceValue.textContent = `Max Price: $${priceFilter.value}`;
+      filterProducts();
+    });
+
+    renderProducts(products);
+  </script>
+</body>
+</html>

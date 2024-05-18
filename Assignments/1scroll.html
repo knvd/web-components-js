@@ -1,0 +1,56 @@
+<html>
+<head>
+<style>
+
+#scrollTopBtn {
+  display: none; /* Hide the button initially */
+  position: fixed; /* Position the button */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Position the button 30px from the right */
+  z-index: 99; /* Make sure the button is on top of other elements */
+  font-size: 18px; /* Increase the font size */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: #555; /* Set a background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; /* Add some padding */
+  border-radius: 4px; /* Rounded corners */
+}
+
+#scrollTopBtn:hover {
+  background-color: #333; /* Add a hover background color */
+}
+</style>
+</head>
+<body>
+<h1>home</h1><h1>home</h1><h1>home</h1><h1>home</h1><h1>home</h1><h1>home</h1><h1>home</h1><h1>home</h1><h1>home</h1><h1>home</h1><h1>home</h1><h1>home</h1><h1>home</h1><h1>home</h1><h1>home</h1><h1>home</h1><h1>home</h1>
+<!-- Scroll to Top Button -->
+<button id="scrollTopBtn" onclick='scrollToTop()'>&#8679; Scroll to Top</button>
+
+
+<script>
+// Get the button element
+const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+// Show the button when user scrolls down 20px from the top
+window.onscroll = function() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    scrollTopBtn.style.display = "block";
+  } else {
+    scrollTopBtn.style.display = "none";
+  }
+};
+
+// Scroll to top function
+function scrollToTop() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+}
+</script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progress Bars</title>
+  <style>
+    .progress-bar {
+      height: 20px;
+      background-color: #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: #007bff;
+      transition: width 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Form Completion Progress</h2>
+  <div class="progress-bar">
+    <div class="progress-fill" style="width: 50%"></div>  </div>
+
+  <h2>File Upload Progress</h2>
+  <input type="file" id="fileUpload">
+  <div class="progress-bar">
+    <div class="progress-fill" id="uploadProgress"></div>
+  </div>
+
+  <script>
+    const fileUpload = document.getElementById('fileUpload');
+    const uploadProgress = document.getElementById('uploadProgress');
+
+    fileUpload.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+
+      if (file) {
+        // Simulate upload progress (replace with actual upload logic)
+        let uploaded = 0;
+        const fileSize = file.size;
+        const intervalId = setInterval(() => {
+          uploaded += 10; // Increase by 10% each interval
+          uploadProgress.style.width = `${(uploaded / fileSize) * 100}%`;
+
+          if (uploaded >= fileSize) {
+            clearInterval(intervalId);
+            console.log("File upload complete!");
+          }
+        }, 100); // Adjust interval for speed of progress bar animation
+      }
+    });
+  </script>
+</body>
+</html>

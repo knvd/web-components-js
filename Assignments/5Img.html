@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blank Page</title>
+
+  <style>
+
+    #gallery {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    #gallery img {
+      width: 200px;
+      height: 150px;
+      margin: 10px;
+      cursor: pointer;
+    }
+
+    #lightbox {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      padding-top: 100px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    #lightboxImg {
+      max-width: 80%;
+      max-height: 80%;
+      margin: auto;
+      display: block;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="gallery">
+    <img src="thumbnail1.jpg" alt="Image 1">
+    <img src="thumbnail2.jpg" alt="Image 2">
+    <img src="thumbnail3.jpg" alt="Image 3">
+    </div>
+
+  <div id="lightbox">
+    <img id="lightboxImg" src="" alt="">
+  </div>
+
+
+<script>
+  // Get elements
+  const gallery = document.getElementById('gallery');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+
+  // Add click event listeners to thumbnails
+  const thumbnails = gallery.getElementsByTagName('img');
+  for (let i = 0; i < thumbnails.length; i++) {
+    thumbnails[i].addEventListener('click', showLightbox);
+  }
+
+  // Show lightbox
+  function showLightbox(e) {
+    lightbox.style.display = 'block';
+    lightboxImg.src = e.target.src;
+  }
+
+  // Close lightbox on click (lightbox or image)
+  lightbox.addEventListener('click', function(e) {
+    if (e.target !== lightboxImg) { // Check if clicked element is not the lightbox image
+      lightbox.style.display = 'none';
+    }
+  });
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Table</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      text-align: left;
+    }
+
+    /* Horizontal Scroll for Small Screens */
+    @media (max-width: 768px) {
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      th, td {
+        display: inline-block;
+        width: min-content;
+      }
+    }
+
+    /* Column Toggling for Extra Small Screens */
+    @media (max-width: 576px) {
+      .responsive-table {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .responsive-table tr {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+
+      .responsive-table th,
+      .responsive-table td {
+        flex: 1 0 0%;
+      }
+
+      .hide-small {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <table class="responsive-table">
+    <thead>
+      <tr>
+        <th class="hide-small">Customer ID</th>
+        <th>Customer Name</th>
+        <th>Product</th>
+        <th>Order Date</th>
+        <th class="hide-small">Order Amount</th>
+        <th class="hide-small">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="hide-small">12345</td>
+        <td>John Doe</td>
+        <td>Laptop</td>
+        <td>2024-04-18</td>
+        <td class="hide-small">$1,000</td>
+        <td class="hide-small">Shipped</td>
+      </tr>
+      <tr>
+        <td class="hide-small">54321</td>
+        <td>Jane Smith</td>
+        <td>Headphones</td>
+        <td>2024-04-17</td>
+        <td class="hide-small">$50</td>
+        <td class="hide-small">Processing</td>
+      </tr>
+      </tbody>
+  </table>
+
+</body>
+</html>

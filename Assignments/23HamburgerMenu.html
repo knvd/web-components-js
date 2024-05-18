@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Hamburger Menu</title>
+  <style>
+    .menu-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background-color: #333;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .menu-toggle.active .bar1 {
+      transform: translateY(10px) rotate(-45deg);
+    }
+
+    .menu-toggle.active .bar2 {
+      opacity: 0;
+    }
+
+    .menu-toggle.active .bar3 {
+      transform: translateY(-10px) rotate(45deg);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="menu-toggle" id="menuToggle">
+    <span class="bar1"></span>
+    <span class="bar2"></span>
+    <span class="bar3"></span>
+  </div>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const menuContent = document.querySelector('.your-menu-content'); // Replace with your menu content selector
+
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      menuContent.classList.toggle('show-menu'); // Add a class to your menu content for styling
+    });
+  </script>
+</body>
+</html>
