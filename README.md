@@ -40,6 +40,7 @@ Welcome to the repository for commonly used JavaScript scripts in web developmen
 33.	imask.html
 34.	DragDropImage.html
 35.	AnimScroll.html
+**PS: There are three images in the folder used as resource in scripts.**
 
 Each script is located in its respective html file. The files are Numbered in accordance with the difficulty level. You can navigate to the desired script and open the HTML file in your browser to see the script in action.
 
