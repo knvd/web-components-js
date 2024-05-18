@@ -1,0 +1,52 @@
+<html>
+<head>
+</head>
+<body>
+
+<form action="javascript:validateForm()">
+	<label for="email">Email:</label>
+	<input type="email" id="email" /> <br /><br />
+<label for="password">Password:</label>
+	<input type="password" id="password" /> <br /><br />
+<label for="phone">Phone:</label>
+	<input type="phone" id="phone" /> <br /><br />
+	<input type="submit" value="SEND" />
+</form>
+</body>
+</html>
+
+
+<script>
+function validateForm() {
+  // Get form input values
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const phone = document.getElementById('phone').value;
+
+  // Regular expressions for validation
+  const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
+  const phoneRegex = /^\d{10}$/;
+
+  // Check email
+  if (!emailRegex.test(email)) {
+    alert('Please enter a valid email address');
+    return false;
+  }
+
+  // Check password
+  if (!passwordRegex.test(password)) {
+    alert('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character');
+    return false;
+  }
+
+  // Check phone number
+  if (!phoneRegex.test(phone)) {
+    alert('Please enter a valid 10-digit phone number');
+    return false;
+  }
+
+  // If all validation passes, return true
+  return true;
+}
+</script>

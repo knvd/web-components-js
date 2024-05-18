@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sortable Table</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .sort-asc {
+      /* Optional styling for ascending sort */
+    }
+
+    .sort-desc {
+      /* Optional styling for descending sort */
+    }
+  </style>
+</head>
+<body>
+
+  <table>
+    <thead>
+      <tr>
+        <th class="sort">Name</th>
+        <th class="sort">Age</th>
+        <th class="sort">City</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>John Doe</td>
+        <td>30</td>
+        <td>New York</td>
+      </tr>
+      <tr>
+        <td>Jane Smith</td>
+        <td>25</td>
+        <td>London</td>
+      </tr>
+      <tr>
+        <td>Michael Brown</td>
+        <td>42</td>
+        <td>Paris</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    const table = document.querySelector('table');
+    const tableHeaders = table.querySelectorAll('th.sort');
+
+    tableHeaders.forEach(header => {
+      header.addEventListener('click', () => {
+        const isAscending = header.classList.contains('sort-asc');
+        const sortColumn = header.textContent.toLowerCase();
+
+        sortTable(table, sortColumn, !isAscending); // Reverse sort order if clicked again
+      });
+    });
+
+    function sortTable(table, sortColumn, isAscending) {
+      const tableBody = table.querySelector('tbody');
+      const tableRows = Array.from(tableBody.querySelectorAll('tr'));
+
+      tableRows.sort((rowA, rowB) => {
+        const valueA = rowA.querySelector(`td:nth-child(${tableHeaders.indexOf(header) + 1})`).textContent.toLowerCase();
+        const valueB = rowB.querySelector(`td:nth-child(${tableHeaders.indexOf(header) + 1})`).textContent.toLowerCase();
+
+        if (valueA < valueB) {
+          return isAscending ? -1 : 1;
+        } else if (valueA > valueB) {
+          return isAscending ? 1 : -1;
+        } else {
+          return 0;
+        }
+      });
+
+      tableBody.innerHTML = tableRows.map(row => row.outerHTML).join('');
+
+      // Optional styling for sorted column (add/remove classes)
+      tableHeaders.forEach(header => header.classList.remove('sort-asc', 'sort-desc'));
+      if (isAscending) {
+        header.classList.add('sort-asc');
+      } else {
+        header.classList.add('sort-desc');
+      }
+    }
+  </script>
+</body>
+</html>

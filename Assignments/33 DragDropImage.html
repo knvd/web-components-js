@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drag-and-Drop Image Gallery</title>
+  <style>
+    #gallery {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 auto;
+      width: 80%;
+      list-style: none;
+      padding: 0;
+    }
+
+    #gallery li {
+      margin: 10px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      cursor: grab;
+    }
+
+    #gallery li img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    #placeholder {
+      display: none;
+      height: 150px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Drag and Drop Image Gallery</h1>
+
+  <ul id="gallery">
+    <li draggable="true">
+      <img src="thumbnail1.jpg" alt="Image 1">
+    </li>
+    <li draggable="true">
+      <img src="thumbnail2.jpg" alt="Image 2">
+    </li>
+    <li draggable="true">
+      <img src="thumbnail3.jpg" alt="Image 3">
+    </li>
+    <li id="placeholder"></li>
+  </ul>
+
+  <script>
+    const gallery = document.getElementById('gallery');
+    const placeholder = document.getElementById('placeholder');
+
+    let draggedItem = null;
+
+    gallery.addEventListener('dragstart', (event) => {
+      draggedItem = event.target.parentElement; // Get the parent li element
+      event.dataTransfer.setData('text/plain', ''); // Required for drag initiation
+    });
+
+    gallery.addEventListener('dragover', (event) => {
+      event.preventDefault(); // Allow dropping within the gallery
+      const targetItem = event.target.parentElement; // Get the parent li element
+      const isBefore = event.clientY < targetItem.getBoundingClientRect().top;
+      const isEmptyPlaceholder = targetItem === placeholder;
+      if (draggedItem !== targetItem && (isBefore || isEmptyPlaceholder)) {
+        placeholder.style.display = 'block';
+        targetItem.insertBefore(placeholder, isEmptyPlaceholder ? targetItem.nextSibling : targetItem);
+      }
+    });
+
+    gallery.addEventListener('dragleave', () => {
+      placeholder.style.display = 'none';
+    });
+
+    gallery.addEventListener('drop', () => {
+      placeholder.style.display = 'none';
+      draggedItem = null;
+    });
+  </script>
+</body>
+</html>

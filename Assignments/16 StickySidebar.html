@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sticky Sidebar</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-content {
+      display: flex;
+    }
+
+    .sidebar {
+      width: 200px;
+      padding: 1rem;
+      background-color: #f0f0f0;
+      position: sticky; /* Make the sidebar sticky */
+      top: 1rem; /* Adjust top position if needed */
+    }
+
+    .main-section {
+      flex: 1;
+      padding: 1rem;
+    }
+
+    .main-section p {
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-content">
+    <div class="sidebar">
+      <h2>Sidebar</h2>
+      <p>This is some sidebar content.</p>
+      <p>It will remain visible as you scroll.</p>
+    </div>
+
+    <div class="main-section">
+      <h1>Main Content</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod lorem vitae magna tincidunt, vitae laoreet odio tempor. Donec et urna magna. Sed diam sem, fermentum vitae arcu sed, aliquam tincidunt vel magna. Vivamus suscipit tortor eget turpis porta, eget sollicitudin mi auctor. Proin vel nibh ac urna pulvinar ullamcorper ut quis risus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Curabitur blandit tempus porttitor. Integer est lorem, laoreet quis risus quis, porta venenatis ligula. Donec rutrum congue leo eget malesuada. Nulla facilisi eros in maximus aliquam. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec eu libero sit amet quam egestas blandit.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod lorem vitae magna tincidunt, vitae laoreet odio tempor. Donec et urna magna. Sed diam sem, fermentum vitae arcu sed, aliquam tincidunt vel magna. Vivamus suscipit tortor eget turpis porta, eget sollicitudin mi auctor. Proin vel nibh ac urna pulvinar ullamcorper ut quis risus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Curabitur blandit tempus porttitor. Integer est lorem, laoreet quis risus quis, porta venenatis ligula. Donec rutrum congue leo eget malesuada. Nulla facilisi eros in maximus aliquam. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec eu libero sit amet quam egestas blandit.</p>
+    </div>
+  </div>
+</body>
+</html>
+

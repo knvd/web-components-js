@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown Timer</title>
+</head>
+<body>
+  <h1>Countdown to Product Launch</h1>
+  <div id="countdown">
+    <span id="days"></span>d:
+    <span id="hours"></span>h:
+    <span id="minutes"></span>m:
+    <span id="seconds"></span>s
+  </div>
+
+  <script>
+    const launchDate = new Date("2024-04-25 10:00:00"); // Set your launch date and time here
+    const countdownTimer = document.getElementById('countdown');
+
+    function getTimeRemaining(endTime) {
+      const now = new Date();
+      const distance = endTime - now;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      return { days, hours, minutes, seconds };
+    }
+
+    function updateCountdown() {
+      const { days, hours, minutes, seconds } = getTimeRemaining(launchDate);
+
+      countdownTimer.innerHTML = `
+        <span id="days">${days.toString().padStart(2, "0")}</span>d:
+        <span id="hours">${hours.toString().padStart(2, "0")}</span>h:
+        <span id="minutes">${minutes.toString().padStart(2, "0")}</span>m:
+        <span id="seconds">${seconds.toString().padStart(2, "0")}</span>s
+      `;
+
+      if (distance < 0) {
+        clearInterval(interval);
+        countdownTimer.innerHTML = "Launch Time!";
+      }
+    }
+
+    const interval = setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>

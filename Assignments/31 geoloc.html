@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maps and Geolocation</title>
+  <style>
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="map"></div>
+
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+  </script>
+
+  <script>
+    // Replace 'YOUR_API_KEY' with your actual Google Maps API key
+
+    function initMap() {
+      const delhiCoords = { lat: 28.6139, lng: 77.2088 }; // Coordinates of Delhi
+      const map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: delhiCoords,
+      });
+
+      // User Geolocation (optional)
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const userCoords = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+
+          // Option 1: Center map on user location
+          // map.setCenter(userCoords);
+
+          // Option 2: Add a marker for user location (and potentially Delhi)
+          const userMarker = new google.maps.Marker({
+            position: userCoords,
+            map: map,
+            title: 'Your Location'
+          });
+
+          const delhiMarker = new google.maps.Marker({
+            position: delhiCoords,
+            map: map,
+            title: 'Delhi, India'
+          });
+        },
+          () => console.log("Geolocation failed"),
+          { enableHighAccuracy: true });
+      } else {
+        console.log("Geolocation is not supported by this browser.");
+      }
+    }
+  </script>
+</body>
+</html>

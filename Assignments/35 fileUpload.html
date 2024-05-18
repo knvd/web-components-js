@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload with Progress</title>
+</head>
+<body>
+
+  <h1>File Upload</h1>
+  <form id="uploadForm">
+    <input type="file" id="fileInput" name="uploadFile">
+    <button type="submit">Upload</button>
+    <span id="progress"></span>
+  </form>
+
+  <script>
+    const form = document.getElementById('uploadForm');
+    const fileInput = document.getElementById('fileInput');
+    const progressSpan = document.getElementById('progress');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault(); // Prevent default form submission
+
+      const file = fileInput.files[0];
+
+      if (!file) {
+        alert("Please select a file to upload!");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('uploadFile', file);
+
+      const xhr = new XMLHttpRequest();
+
+      xhr.upload.addEventListener('progress', (e) => {
+        const progress = Math.round((e.loaded * 100) / e.total);
+        progressSpan.textContent = `Uploading... ${progress}%`;
+      });
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) { // Success
+            progressSpan.textContent = "Upload successful!";
+            // Handle successful upload response (optional)
+          } else {
+            progressSpan.textContent = "Upload failed!";
+            // Handle upload error (optional)
+          }
+        }
+      };
+
+      xhr.open('POST', 'your_upload_script.php'); // Replace with your server-side script
+      xhr.send(formData);
+    });
+  </script>
+</body>
+</html>
